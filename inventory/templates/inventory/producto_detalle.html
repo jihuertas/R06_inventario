@@ -1,0 +1,41 @@
+{% extends 'inventory/base.html' %}
+
+{% block titulo %} Detalle de Producto {% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-lg">
+        <img src="{{producto.imagen.url}}" class="card-img-top" alt="Imagen del producto">
+        <div class="card-body">
+          <h5 class="card-title">{{producto.nombre}}</h5>
+          <p class="card-text">
+            <strong>Descripción:</strong>{{producto.descripcion}}<br>
+            <strong>Precio:</strong> {{producto.precio}}<br>
+            <strong>Stock disponible:</strong> {{producto.stock}} unidades
+          </p>
+          <a href="{% url 'productos' %}" class="btn btn-outline-secondary">Volver</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+  
+
+

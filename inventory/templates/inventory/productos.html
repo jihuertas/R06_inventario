@@ -3,6 +3,43 @@
 {% block titulo %} Productos {% endblock %}
 
 {% block contenido %}
-<h1>Productos</h1>
+
+<div class="container">
+    <h2 class="mb-4">Listado de Productos</h2>
+
+    <table class="table table-bordered table-striped">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Stock</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+          <tr>
+            <td><a href="{% url 'producto_detalle' producto.pk %}">{{producto.nombre}}</a> </td>
+            <td>{{producto.stock}}</td>
+            <td>{{producto.precio}}</td>
+            <td>
+              <button class="btn btn-sm btn-primary me-2" >Editar</button>
+              <button class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+          </tr>
+
+        {% endfor %}
+    
+        
+      </tbody>
+    </table>
+  </div>
+
 {% endblock %}
+
+
+
+
+  
+
 
