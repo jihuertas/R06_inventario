@@ -1,0 +1,30 @@
+{% extends 'inventory/base.html' %}
+
+{% block titulo %} Editar Producto {% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}        
+        
+        <button type="submit">Enviar</button>
+        
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+  
+
+

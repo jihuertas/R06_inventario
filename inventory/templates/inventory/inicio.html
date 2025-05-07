@@ -4,5 +4,5 @@
 {% block contenido %}
         <p>Gestiona tus productos de manera eficiente y organizada.</p>
         <a href="{% url 'productos' %}" class="btn">Ver Productos</a>
-        <a href="/agregar" class="btn">Agregar Producto</a>
+        <a href="{% url 'producto_nuevo' %}" class="btn">Agregar Producto</a>
 {% endblock %}
