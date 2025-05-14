@@ -1,0 +1,19 @@
+{% extends 'inventory/base.html' %}
+
+{% block titulo %} Borrar Producto: {{producto.nombre}} {% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <p>¿Estás seguro de que quieres borrar el producto: {{producto.nombre}}?</p>
+        <form method="POST">
+          {% csrf_token %}
+          {{form.as_p}}        
+          <button type="submit" class="btn btn-danger">Borrar</button>
+          <a href="{% url 'productos' %}" class="btn btn-outline-secondary">Volver</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -8,9 +8,18 @@ class Producto(models.Model):
     stock = models.IntegerField(default=0)
     precio = models.DecimalField(max_digits=9, decimal_places=2)
     imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f' {self.nombre} ({self.stock})'
     
     class Meta:
         verbose_name_plural = 'Productos'
+
+    
+
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f' {self.nombre}'
