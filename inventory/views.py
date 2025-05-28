@@ -1,7 +1,52 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 
 from .models import Producto, Categoria
 from .forms import ProductoForm, CategoriaForm
+from django.contrib import messages
+from django.views.generic import *
+
+# Con CBV:
+
+class ProductoListView(ListView):
+    model = Producto
+    template_name = 'inventory/productos.html'
+    context_object_name = 'productos'
+    ordering = ['nombre']
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        filtro_nombre = self.request.GET.get('nombre')
+        if filtro_nombre:
+            query = query.filter(nombre__icontains=filtro_nombre)
+        return query
+
+class ProductoDetailView(DetailView):
+    model = Producto
+    template_name = 'inventory/producto_detalle.html'
+    context_object_name = 'productos'
+    pk_url_kwarg = 'producto_pk'
+
+
+class ProductoDeleteView(DeleteView):
+    model = Producto
+    template_name = 'inventory/producto_borrar.html'
+    success_url = reverse_lazy('productos')
+    pk_url_kwarg = 'producto_pk'
+
+class ProductoEditarView(UpdateView):
+    model=Producto
+    template_name='inventory/producto_editar.html'
+    success_url = reverse_lazy('productos')
+    form_class = ProductoForm
+
+class ProductoCrearView(CreateView):
+    model=Producto
+    template_name='inventory/producto_nuevo.html'
+    success_url = reverse_lazy('productos')
+    form_class = ProductoForm
+    
+
 
 # Create your views here.
 def inicio(request):
@@ -11,7 +56,11 @@ def inicio(request):
 
 # Listado de productos
 def productos(request):
+    filtro_nombre = request.GET.get('nombre')
     productos_todos = Producto.objects.all()
+    if filtro_nombre:
+        productos_todos = productos_todos.filter(nombre__icontains=filtro_nombre)
+
     return render(request, 'inventory/productos.html',{'productos':productos_todos})
 
 # Detalle de producto
@@ -79,6 +128,58 @@ def producto_borrar(request, producto_pk):
 def categoria_nueva(request):
     form = CategoriaForm(request.POST)
     if form.is_valid():
-        form.save()        
+        form.save() 
     form_producto = ProductoForm()
     return render(request, 'inventory/producto_nuevo.html',{'form_producto':form_producto, 'form_categoria': form})
+
+def producto_nuevo2(request):
+    form_producto = ProductoForm()
+    form_categoria = CategoriaForm()
+
+    if request.method == 'POST':
+        formulario = request.POST.get('formulario')
+
+        if formulario == 'producto':
+            form_producto = ProductoForm(request.POST)
+
+            if form_producto.is_valid():
+                form_producto.save()
+                messages.success(request, "Producto creado correctamente.")
+
+                return redirect('productos')
+        elif formulario == 'categoria':
+            form_categoria = CategoriaForm(request.POST)
+            if form_categoria.is_valid():
+                messages.success(request, "Categoría creada correctamente.")
+                form_categoria.save()
+        
+    return render(request, 'inventory/producto_nuevo.html',{'form_producto':form_producto, 'form_categoria': form_categoria})
+
+
+
+
+def producto_nuevo3(request):
+    
+    form_producto = ProductoForm()
+    form_categoria = CategoriaForm()
+    messages.info(request, "Mensaje 1")       
+
+    if request.method == 'POST':
+        formulario = request.POST.get('formulario')
+        if formulario == 'producto':
+            form_producto = ProductoForm(request.POST)
+            if form_producto.is_valid():
+                form_producto.save()
+                return redirect('productos')
+
+        elif formulario == 'categoria':
+            form_categoria = CategoriaForm(request.POST)
+            if form_categoria.is_valid():
+                form_categoria.save()
+                messages.add_message(request, messages.INFO, "Categoría creada")       
+
+                form_categoria = CategoriaForm()
+                    
+    return render(request, 'inventory/producto_nuevo.html',{'form_producto':form_producto, 'form_categoria':form_categoria})
+
+

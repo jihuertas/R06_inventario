@@ -10,7 +10,7 @@
 
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}        
+        {{form_producto.as_p}}        
         <input type="hidden" name="formulario" value ="producto">
         <button type="submit">Enviar</button>
         
@@ -21,6 +21,24 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <p>Nueva categoría:</p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{form_categoria.as_p}}        
+        <input type="hidden" name="formulario" value ="categoria">
+
+        <button type="submit">Crear categoría</button>
+        
+      </form>
+      
+
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

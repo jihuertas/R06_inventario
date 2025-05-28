@@ -1,0 +1,58 @@
+ul.errorlist {
+    color: #b94a48;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    list-style: none;
+}
+
+ul.errorlist li {
+    margin-left: 0;
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+header h1 {
+    margin: 0;
+}
+main {
+    padding: 2rem;
+    text-align: center;
+}
+.btn {
+    display: inline-block;
+    margin: 1rem 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn:hover {
+    background-color: #45a049;
+}
+footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}

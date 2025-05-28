@@ -14,10 +14,25 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields= ['nombre', 'descripcion', 'stock', 'precio', 'categoria']
 
+    def clean_stock(self):
+        stock = self.cleaned_data['stock']
+
+        if stock < 0:
+            raise ValidationError('El stock no puede ser negativo')
+        
+        if stock > 500:
+            raise ValidationError('No puede haber más de 500 unidades')
+
+        return stock
+
+
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
         fields= ['nombre']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
     
     def clean_nombre(self):
